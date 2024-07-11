@@ -131,7 +131,7 @@ authControllers.sendEmailToResetPassword = async (req, res) => {
       `
       <h1>Recuperar contraseña</h1>
       <p>Puedes usar ese link para recuprar tu contraseña: 
-      <a href="https://react-flashcards-gules.vercel.app/changePassword/${token}">Click aqui</a>
+      <a href="${process.env.FRONT_URL}/changePassword/${token}">Click aqui</a>
       </p>
       `,
       mail

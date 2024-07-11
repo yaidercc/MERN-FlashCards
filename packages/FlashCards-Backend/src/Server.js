@@ -29,7 +29,7 @@ class Server {
   }
 
   middlewares() {
-    const origincors = process.env.NODE_ENV === "production" ? "https://flashcards-tau-six.vercel.app" : "http://localhost:5173";
+    const origincors = process.env.FRONT_URL;
 
     const passportConfig = {
       secret: process.env.SECRET,

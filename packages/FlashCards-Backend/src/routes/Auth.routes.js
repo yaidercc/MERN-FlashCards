@@ -315,6 +315,7 @@ router.get("/validateToken", validateJWT, (req, res) => {
 });
 
 router.get("/isAuthenticated", isAuthenticated, (req, res) => {
+  
   return res.json({
     success: true,
     user: req.user,
