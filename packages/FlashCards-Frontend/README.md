@@ -27,3 +27,5 @@ https://hub.docker.com/repository/docker/rediatcc/flashcard-frontend/general
 - React-tooltip
 - Mui
 - Sass
+- Jest
+- React-testing-library
