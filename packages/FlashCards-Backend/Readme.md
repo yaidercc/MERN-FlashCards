@@ -8,11 +8,6 @@ La API de este proyecto de flashcards te permite crear una cuenta, autenticarte,
 
 https://hub.docker.com/repository/docker/rediatcc/flashcard-backend
 
-### Crear e iniciar contenedor de docker
-
-1. Entra a la raiz de la carpeta desde la consola de comandos y escibres el siguiente comando `docker compose up` y esperas a que termine
-2. En el navagador o postman escribes: `localhost:4400/api/` o acompañado de algunos de los endpoints referenciados mas abajo.
-
 ## Instalar dependencias
 
 `npm install`
