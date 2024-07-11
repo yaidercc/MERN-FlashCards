@@ -1,0 +1,58 @@
+version: '3'
+
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: flashcardBd
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: ${MONGO_USERNAME}
+      MONGO_INITDB_ROOT_PASSWORD: ${MONGO_PASSWORD}
+    volumes:
+      - flashcards_data:/data/db
+    restart: always
+    networks:
+      - api
+
+  flashcards_backend:
+    depends_on:
+      - mongo
+    build:
+      context: ./packages/FlashCards-Backend
+      dockerfile: Dockerfile
+    container_name: flashcards_backend
+    ports:
+      - "${PORT}:${PORT}"
+    environment:
+      MONGO_CNN: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/flashCards?authSource=admin
+      MONGO_CNN_SESSION: mongodb://${MONGO_USERNAME}:${MONGO_PASSWORD}@mongo:27017/sessions?authSource=admin
+      JWTKEY: ${JWTKEY}
+      SECRET: ${SECRET}
+      EMAILOWNER: ${EMAILOWNER}
+      PASSWORDOWNER: ${PASSWORDOWNER}
+      PORT: ${PORT}
+      CLOUDINARY_URL: ${CLOUDINARY_URL}
+    networks:
+      - api
+    restart: always
+
+  flashcards_frontend:
+    depends_on:
+      - flashcards_backend
+    build:
+      context: ./packages/FlashCards-Frontend
+      dockerfile: Dockerfile
+      args:
+        VITE_API_URL: http://localhost:${PORT}/api
+    container_name: flashcards_frontend
+    ports:
+      - "5173:80"
+    networks:
+      - api
+    
+volumes:
+  flashcards_data:
+networks:
+  api:
+    driver: bridge
